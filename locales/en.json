@@ -1,0 +1,66 @@
+{
+    "progress": {
+        "robbing": "Robbing Store"
+    },
+    "target": {
+        "computer": "Hack Computer",
+        "safe": "Enter Safe Code"
+    },
+    "notification": {
+        "safe_code": "The safe code is %s."
+    },
+    "prompt": {
+        "safe": {
+            "title": "Safe Code",
+            "input": {
+                "code": {
+                    "label": "Code",
+                    "description": "Code to unlock the safe."
+                }
+            }
+        }
+    },
+    "logs": {
+        "started": {
+            "title": "Robbery Started",
+            "description": "Started the robbery at store (%s)."
+        },
+        "loot_dropped": {
+            "title": "Loot Dropped",
+            "description": "The loot from the till has been dropped on the ground at store (%s)."
+        },
+        "loot_collected": {
+            "title": "Loot Collected",
+            "description": "Has collected the loot of $%s at store (%s)."
+        },
+        "hacked_computer": {
+            "title": "Hacked Computer",
+            "description": "Successfully hacked the computer for the safe code at store (%s)."
+        },
+        "opened_safe": {
+            "title": "Opened Safe",
+            "description": "Successfully opened the safe with the code (%s) at store (%s)."
+        },
+        "looted_safe": {
+            "title": "Looted Safe",
+            "description": "Successfully looted the safe at store (%s)."
+        },
+        "store_cooldown": {
+            "title": "Store Reset",
+            "description": "They have reset the store cooldown at store (%s)."
+        },
+        "global_cooldown": {
+            "title": "Stores Reset",
+            "description": "They have reset all stores."
+        }
+    },
+    "error": {
+        "active": "A store is already being robbed!",
+        "cooldown": "All stores are on a global cooldown!",
+        "already_robbed": "This store was robbed recently!",
+        "not_enough_police": "There are not enough police available, needs %s.",
+        "incorrect_code": "You have entered the incorrect code for the safe.",
+        "store_cooldown": "Store (%s) doesn't have a cooldown.",
+        "global_cooldown": "There is no global cooldown active."
+    }
+}
