@@ -26,7 +26,7 @@ local function getClosestStore(position)
 end
 
 --- Generates the code for a safe
-local function generateCode()
+local function generateSafeCode()
     local number = tostring(math.random(0, 9999))
     return string.format("%04d", number) -- Format string by placing 0 in front of 3 digit numbers
 end
@@ -61,7 +61,7 @@ local function finishRobbery(index)
         cooldown = Config.UseStoreCooldown and os.time() + Config.StoreCooldown or -1,
         lastSafe = safeNetworkId,
         hackedComputer = false,
-        safeCode = generateCode(),
+        safeCode = generateSafeCode(),
         openedSafe = false,
         safeNet = -1
     }
@@ -330,7 +330,7 @@ RegisterNetEvent("ff_shoprobbery:server:lootedSafe", function(storeIndex, safeNe
     if not storeData then return false end
 
     for _, itemData in pairs(Config.SafeItems) do
-        if math.random(100) >= itemData.chance then
+        if not itemData.chance or math.random(100) >= itemData.chance then
             GiveItem(src, itemData.item, math.random(itemData.amount.min, itemData.amount.max))
         end
     end
@@ -346,7 +346,7 @@ CreateThread(function()
             robbedTill = false,
             cooldown = -1,
             hackedComputer = false,
-            safeCode = generateCode(),
+            safeCode = generateSafeCode(),
             openedSafe = false,
             safeNet = -1
         }
@@ -423,7 +423,7 @@ lib.addCommand('resetstores', {
             robbedTill = false,
             cooldown = -1,
             hackedComputer = false,
-            safeCode = generateCode(),
+            safeCode = generateSafeCode(),
             openedSafe = false,
             safeNet = -1
         }
