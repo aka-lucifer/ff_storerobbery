@@ -32,8 +32,8 @@ RegisterNetEvent("ff_shoprobbery:client:robTill", function(clerkNet, tillCoords,
 
     RobberyAlert(tillCoords)
     TriggerServerEvent("ff_shoprobbery:server:removeTill", tillCoords)
-    local scene = NetworkCreateSynchronisedScene(tillCoords.x, tillCoords.y, tillCoords.z, tillRotation.x, tillRotation.y, tillRotation.z - 180.0, 2, false, false, -1, 0, 1.0)
 
+    local scene = NetworkCreateSynchronisedScene(tillCoords.x, tillCoords.y, tillCoords.z, tillRotation.x, tillRotation.y, tillRotation.z - 180.0, 2, false, false, -1, 0, 1.0)
     NetworkAddPedToSynchronisedScene(
         entity,
         scene,

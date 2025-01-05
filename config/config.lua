@@ -1,7 +1,7 @@
 Config = {}
 
 -- Debug Information
-Config.Debug = false
+Config.Debug = true
 
 -- Locales
 Config.Language = 'en' -- Locale language
@@ -34,17 +34,29 @@ Config.SafeItems = {
         item = "goldbar",
         amount = { min = 1, max = 3 },
         chance = 60
+    },
+    {
+        item = "rolex",
+        amount = { min = 1, max = 6},
     }
 }
 
 -- All the different store location data
 Config.Locations = {
-    {
+    { -- Grove Street
         ped = vec4(-47.17, -1758.37, 29.42, 50.71),
         safe = vec4(-42.26, -1749.3, 28.42, 138.63),
         computer = {
             coords = vec3(-44.71, -1748.96, 29.2),
 	        radius = 0.6,
+        }
+    },
+    { -- Innocence Blvd
+        ped = vec4(24.14, -1345.66, 28.5, 272.08),
+        safe = vec4(30.96, -1339.91, 28.5, 89.05),
+        computer = {
+            coords = vec3(29.52338027954101, -1338.5648193359376, 29.50686836242675),
+            radius = 0.6
         }
     }
 }
