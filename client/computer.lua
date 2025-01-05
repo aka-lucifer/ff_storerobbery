@@ -1,8 +1,10 @@
 AddEventHandler("ff_shoprobbery:client:hackComputer", function(_, data)
     if not data or type(data.index) ~= "number" then return end
     
-    -- local hackedComputer = exports.fallouthacking:start(6, 8)
-    local hackedComputer = true
+    lib.requestAnimDict('anim@heists@prison_heiststation@cop_reactions')
+    TaskPlayAnim(cache.ped, "anim@heists@prison_heiststation@cop_reactions", "cop_b_idle", 2.0, 2.0, -1, 50, 0, false, false, false)
+    
+    local hackedComputer = exports.fallouthacking:start(6, 8)
     if hackedComputer then
         local success, safeCode = lib.callback.await('ff_shoprobbery:getSafeCode', false, data.index)
         if not success then return end
@@ -11,6 +13,8 @@ AddEventHandler("ff_shoprobbery:client:hackComputer", function(_, data)
     else
         NetworkAlert(GetEntityCoords(cache.ped, false))
     end
+    
+    ClearPedTasks(cache.ped)
 end)
 
 local computer = {
@@ -36,6 +40,9 @@ function computer.createTarget(index)
                     label = locale('target.computer'),
                     distance = 2.0,
                     onSelect = function()
+                        lib.requestAnimDict('anim@heists@prison_heiststation@cop_reactions')
+                        TaskPlayAnim(cache.ped, "anim@heists@prison_heiststation@cop_reactions", "cop_b_idle", 2.0, 2.0, -1, 50, 0, false, false, false)
+                        
                         local hackedComputer = exports.fallouthacking:start(6, 8)
                         if hackedComputer then
                             local success, safeCode = lib.callback.await('ff_shoprobbery:getSafeCode', false, index)
@@ -45,6 +52,8 @@ function computer.createTarget(index)
                         else
                             NetworkAlert(GetEntityCoords(cache.ped, false))
                         end
+
+                        ClearPedTasks(cache.ped)
                     end,
                     canInteract = function()
                         local storeData = GlobalState[string.format("ff_shoprobbery:store:%s", index)]
