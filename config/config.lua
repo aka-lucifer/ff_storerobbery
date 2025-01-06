@@ -1,7 +1,7 @@
 Config = {}
 
 -- Debug Information
-Config.Debug = true
+Config.Debug = false
 
 -- Locales
 Config.Language = 'en' -- Locale language
@@ -20,7 +20,7 @@ Config.Progress = "ox_lib_bar" -- Support ox_lib_bar, ox_lib_circle or mythic
 Config.Dispatch = "ps-dispatch" -- Supports cd_dispatch, qs-dispatch, ps-dispatch, rcore_dispatch, mythic-mdt, custom
 Config.DispatchJobs = { "police" } -- Only for Qbox, QB & ESX
 Config.NetworkAlertTimeout = 120 -- How often in seconds it limits the network alert so it can only be sent once and then have to wait this long before sending again (prevents spam)
-Config.RequiredPolice = 0 -- How many police on duty to start heist
+Config.RequiredPolice = 2 -- How many police on duty to start heist
 
 -- Cooldown
 Config.GlobalCooldown = 900 -- In seconds currently at 15 minutes
