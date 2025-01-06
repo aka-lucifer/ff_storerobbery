@@ -163,8 +163,10 @@ RegisterNetEvent("ff_shoprobbery:server:restoreTill", function(tillCoords)
 end)
 
 ---@param pickupCoords vector3
-RegisterNetEvent("ff_shoprobbery:server:cashDropped", function(pickupCoords)
+---@param pickupRotation vector3
+RegisterNetEvent("ff_shoprobbery:server:cashDropped", function(pickupCoords, pickupRotation)
     if not pickupCoords then return end
+    if not pickupRotation then return end
 
     local src = source
     local player = GetPlayer(src)
@@ -189,7 +191,7 @@ RegisterNetEvent("ff_shoprobbery:server:cashDropped", function(pickupCoords)
 
     updateStore(closestStore, "safeNet", netId)
     updateStore(closestStore, "robbedTill", true)
-    TriggerClientEvent("ff_shoprobbery:client:cashDropped", -1, pickupCoords)
+    TriggerClientEvent("ff_shoprobbery:client:cashDropped", -1, pickupCoords, pickupRotation)
     SendLog(src, GetPlayerName(src), locale("logs.loot_dropped.title"), string.format(locale("logs.loot_dropped.description"), closestStore), Colours.FiveForgeBlue)
 end)
 

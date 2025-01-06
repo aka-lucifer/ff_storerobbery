@@ -109,6 +109,8 @@ local function safeIdleScene(coords, rotation, safe, bag)
     NetworkStartSynchronisedScene(scene)
     Wait(1799)
     NetworkStopSynchronisedScene(scene)
+    
+    DeleteEntity(bag)
 
     scene = NetworkCreateSynchronisedScene(coords.x, coords.y, coords.z, rotation.x, rotation.y, rotation.z, 2, false, false, -1, 0, 1.0)
     NetworkAddPedToSynchronisedScene(
@@ -144,7 +146,6 @@ local function safeIdleScene(coords, rotation, safe, bag)
     NetworkStartSynchronisedScene(scene)
     Wait(666)
     NetworkStopSynchronisedScene(scene)
-    DeleteEntity(bag)
     return true
 end
 
