@@ -19,6 +19,7 @@ Config.Progress = "ox_lib_bar" -- Support ox_lib_bar, ox_lib_circle or mythic
 -- Police & Dispatch Related
 Config.Dispatch = "ps-dispatch" -- Supports cd_dispatch, qs-dispatch, ps-dispatch, rcore_dispatch, mythic-mdt, custom
 Config.DispatchJobs = { "police" } -- Only for Qbox, QB & ESX
+Config.NetworkAlertTimeout = 120 -- How often in seconds it limits the network alert so it can only be sent once and then have to wait this long before sending again (prevents spam)
 Config.RequiredPolice = 0 -- How many police on duty to start heist
 
 -- Cooldown
@@ -43,18 +44,18 @@ Config.SafeItems = {
 
 -- All the different store location data
 Config.Locations = {
-    { -- Grove Street
+    {
         ped = vec4(-47.17, -1758.37, 29.42, 50.71),
         safe = vec4(-42.26, -1749.3, 28.42, 138.63),
-        computer = {
+        network = {
             coords = vec3(-44.71, -1748.96, 29.2),
 	        radius = 0.6,
         }
     },
-    { -- Innocence Blvd
+    {
         ped = vec4(24.14, -1345.66, 28.5, 272.08),
         safe = vec4(30.96, -1339.91, 28.5, 89.05),
-        computer = {
+        network = {
             coords = vec3(29.52338027954101, -1338.5648193359376, 29.50686836242675),
             radius = 0.6
         }

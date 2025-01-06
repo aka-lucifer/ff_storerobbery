@@ -1,3 +1,5 @@
+local lastAlert = nil
+
 AddEventHandler("ff_shoprobbery:client:hackNetwork", function(_, data)
     if not data or type(data.index) ~= "number" then return end
     
@@ -11,7 +13,10 @@ AddEventHandler("ff_shoprobbery:client:hackNetwork", function(_, data)
 
         Notify(string.format(locale("notification.safe_code"), safeCode), "inform", 20000)
     else
-        NetworkAlert(GetEntityCoords(cache.ped, false))
+        if not lastAlert or GetGameTimer() > lastAlert then -- Handles cooldown for alert so it isn't spammed
+            NetworkAlert(GetEntityCoords(cache.ped, false))
+            lastAlert = GetGameTimer() + Config.NetworkAlertTimeout * 1000
+        end
     end
     
     ClearPedTasks(cache.ped)
@@ -50,7 +55,10 @@ function network.createTarget(index)
 
                             Notify(string.format(locale("notification.safe_code"), safeCode), "inform", 20000)
                         else
-                            NetworkAlert(GetEntityCoords(cache.ped, false))
+                            if not lastAlert or GetGameTimer() > lastAlert then -- Handles cooldown for alert so it isn't spammed
+                                NetworkAlert(GetEntityCoords(cache.ped, false))
+                                lastAlert = GetGameTimer() + Config.NetworkAlertTimeout * 1000
+                            end
                         end
 
                         ClearPedTasks(cache.ped)
