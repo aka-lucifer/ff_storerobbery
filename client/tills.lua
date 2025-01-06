@@ -69,7 +69,7 @@ RegisterNetEvent("ff_shoprobbery:client:robTill", function(clerkNet, tillCoords,
 
     NetworkStartSynchronisedScene(scene)
     SetTimeout(21500, function()
-        TriggerServerEvent("ff_shoprobbery:server:cashDropped", GetEntityCoords(bag, false))
+        TriggerServerEvent("ff_shoprobbery:server:cashDropped", GetEntityCoords(bag, false), GetEntityRotation(bag, 2))
     end)
 
     local function finishTill()
@@ -156,13 +156,15 @@ local function pickupTask()
 end
 
 ---@param pickupCoords vector3
-RegisterNetEvent("ff_shoprobbery:client:cashDropped", function(pickupCoords)
+---@param pickupRotation vector3
+RegisterNetEvent("ff_shoprobbery:client:cashDropped", function(pickupCoords, pickupRotation)
     if not pickupCoords then return end
+    if not pickupRotation then return end
     -- Load the model into memory
     lib.requestModel(`p_poly_bag_01_s`)
 
     -- Create the loot pickup
-    moneyPickup = CreatePickupRotate(`PICKUP_MONEY_MED_BAG`,pickupCoords.x, pickupCoords.y, pickupCoords.z, 0.0, 0.0, 0.0, 8, 1.0, 24, true, `p_poly_bag_01_s`)
+    moneyPickup = CreatePickupRotate(`PICKUP_MONEY_MED_BAG`,pickupCoords.x, pickupCoords.y, pickupCoords.z, pickupRotation.x, pickupRotation.y, pickupRotation.z, 8, 1.0, 24, true, `p_poly_bag_01_s`)
     -- Wait until the pickup exists
     local exists = lib.waitFor(function()
         if DoesPickupExist(moneyPickup) then return true end
