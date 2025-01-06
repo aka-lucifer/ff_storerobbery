@@ -281,7 +281,7 @@ function safe.createTarget(index, netId)
 
                     return GlobalState["ff_shoprobbery:active"]
                     and not GlobalState["ff_shoprobbery:cooldown"]
-                    and storeData.robbedTill and storeData.hackedComputer and not storeData.openedSafe
+                    and storeData.robbedTill and storeData.hackedNetwork and not storeData.openedSafe
                 end
             }
         }, 2.0)
@@ -300,7 +300,7 @@ function safe.createTarget(index, netId)
 
                         return GlobalState["ff_shoprobbery:active"]
                         and not GlobalState["ff_shoprobbery:cooldown"]
-                        and storeData.robbedTill and storeData.hackedComputer and not storeData.openedSafe
+                        and storeData.robbedTill and storeData.hackedNetwork and not storeData.openedSafe
                     end
                 }
             },

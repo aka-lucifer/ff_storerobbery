@@ -1,7 +1,7 @@
 lib.locale()
 
 local safe = require "client.safe"
-local computer = require "client.computer"
+local network = require "client.network"
 require "client.peds"
 require "client.tills"
 
@@ -42,25 +42,18 @@ startClerkTask()
 -- Deleting all targets on resource stop/restart
 AddEventHandler("onResourceStop", function(res)
     if res ~= GetCurrentResourceName() then return end
-    computer.deleteTargets()
+    network.deleteTargets()
     safe.deleteTargets()
 end)
 
 --- Used for recreating the aim at clerk task when cooldown is over
 RegisterNetEvent("ff_shoprobbery:client:reset", startClerkTask)
 
---- Disable a computers target
+--- Disable a networks target
 ---@param index number
-RegisterNetEvent("ff_shoprobbery:client:disableComputer", function(index)
+RegisterNetEvent("ff_shoprobbery:client:disableNetwork", function(index)
     if not index or type(index) ~= "number" then return end
-    computer.deleteTarget(index)
-end)
-
---- Disable a computers target
----@param index number
-RegisterNetEvent("ff_shoprobbery:client:disableComputer", function(index)
-    if not index or type(index) ~= "number" then return end
-    computer.deleteTarget(index)
+    network.deleteTarget(index)
 end)
 
 -- Handle statebag updates
@@ -68,8 +61,8 @@ for i = 1, #Config.Locations do
     AddStateBagChangeHandler(string.format("ff_shoprobbery:store:%s", i), "", function(bagName, key, value, reserved, replicated)
         Debug("Store data updated (" .. json.encode(value, { indent = true }) .. ")", DebugTypes.Info)
 
-        if value and value.robbedTill and not value.hackedComputer then
-            computer.createTarget(i)
+        if value and value.robbedTill and not value.hackedNetwork then
+            network.createTarget(i)
 
             if not value.safeNet or not NetworkDoesNetworkIdExist(value.safeNet) then return end
             safe.createTarget(i, value.safeNet)

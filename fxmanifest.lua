@@ -12,7 +12,7 @@ files {
     "client/peds.lua",
     "client/tills.lua",
     "client/safe.lua",
-    "client/computer.lua"
+    "client/network.lua"
 }
 
 shared_scripts {

@@ -3,7 +3,7 @@
         "robbing": "Robbing Store"
     },
     "target": {
-        "computer": "Hack Computer",
+        "network": "Access Network",
         "safe": "Enter Safe Code"
     },
     "notification": {
@@ -33,9 +33,9 @@
             "title": "Loot Collected",
             "description": "Has collected the loot of $%s at store (%s)."
         },
-        "hacked_computer": {
-            "title": "Hacked Computer",
-            "description": "Successfully hacked the computer for the safe code at store (%s)."
+        "hacked_network": {
+            "title": "Hacked Network",
+            "description": "Successfully hacked the network for the safe code at store (%s)."
         },
         "opened_safe": {
             "title": "Opened Safe",

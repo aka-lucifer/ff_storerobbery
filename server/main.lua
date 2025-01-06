@@ -60,13 +60,13 @@ local function finishRobbery(index)
         robbedTill = false,
         cooldown = Config.UseStoreCooldown and os.time() + Config.StoreCooldown or -1,
         lastSafe = safeNetworkId,
-        hackedComputer = false,
+        hackedNetwork = false,
         safeCode = generateSafeCode(),
         openedSafe = false,
         safeNet = -1
     }
 
-    TriggerClientEvent("ff_shoprobbery:client:disableComputer", -1, index)
+    TriggerClientEvent("ff_shoprobbery:client:disableNetwork", -1, index)
 
     -- Handle resetting global cooldown
     SetTimeout(Config.GlobalCooldown * 1000, function()
@@ -251,13 +251,13 @@ lib.callback.register('ff_shoprobbery:getSafeCode', function(source, storeIndex)
     local storeConfig = Config.Locations[storeIndex]
     if not storeConfig then return false end
 
-    if #(pedCoords - storeConfig.computer.coords) > 2.0 then return false end
+    if #(pedCoords - storeConfig.network.coords) > 2.0 then return false end
 
     local storeData = GlobalState[string.format("ff_shoprobbery:store:%s", storeIndex)]
     if not storeData then return false end
 
-    updateStore(storeIndex, "hackedComputer", true)
-    SendLog(src, GetPlayerName(src), locale("logs.hacked_computer.title"), string.format(locale("logs.hacked_computer.description"), storeIndex), Colours.FiveForgeBlue)
+    updateStore(storeIndex, "hackedNetwork", true)
+    SendLog(src, GetPlayerName(src), locale("logs.hacked_network.title"), string.format(locale("logs.hacked_network.description"), storeIndex), Colours.FiveForgeBlue)
     return true, storeData.safeCode
 end)
 
@@ -345,7 +345,7 @@ CreateThread(function()
         GlobalState[string.format("ff_shoprobbery:store:%s", i)] = {
             robbedTill = false,
             cooldown = -1,
-            hackedComputer = false,
+            hackedNetwork = false,
             safeCode = generateSafeCode(),
             openedSafe = false,
             safeNet = -1
@@ -422,7 +422,7 @@ lib.addCommand('resetstores', {
         GlobalState[string.format("ff_shoprobbery:store:%s", i)] = {
             robbedTill = false,
             cooldown = -1,
-            hackedComputer = false,
+            hackedNetwork = false,
             safeCode = generateSafeCode(),
             openedSafe = false,
             safeNet = -1
