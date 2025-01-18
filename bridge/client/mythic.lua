@@ -8,10 +8,10 @@ local function retrieveComponents()
 	Inventory = exports["mythic-base"]:FetchComponent("Inventory")
 end
 
-AddEventHandler("Boilerplate:Shared:DependencyUpdate", retrieveComponents)
+AddEventHandler("ff_shoprobbery:Shared:DependencyUpdate", retrieveComponents)
 
 AddEventHandler("Core:Shared:Ready", function()
-	exports["mythic-base"]:RequestDependencies("Boilerplate", {
+	exports["mythic-base"]:RequestDependencies("ff_shoprobbery", {
 		"Targeting",
 		"Progress",
 		"Notification",
