@@ -1,0 +1,26 @@
+Mythic:
+    - Add the below to `mythic-mdt/server/alerts/events.lua` -> _predefined table
+        storeNetwork = {
+            code = "10-17",
+            title = "Attempted Network Access",
+            type = 1,
+            isPanic = false,
+            blip = {
+                icon = 629,
+                size = 1.0,
+                color = 1,
+                duration = (60 * 5),
+            },
+        },
+        storeRobbery = {
+            code = "10-68",
+            title = "Store Robbery",
+            type = 1,
+            isPanic = false,
+            blip = {
+                icon = 52,
+                size = 1.0,
+                color = 1,
+                duration = (60 * 5),
+            },
+        },
