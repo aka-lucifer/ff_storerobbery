@@ -13,10 +13,10 @@ local function retrieveComponents()
 	Vehicles = exports["mythic-base"]:FetchComponent("Vehicles")
 end
 
-AddEventHandler("Boilerplate:Shared:DependencyUpdate", retrieveComponents)
+AddEventHandler("ff_shoprobbery:Shared:DependencyUpdate", retrieveComponents)
 
 AddEventHandler("Core:Shared:Ready", function()
-	exports["mythic-base"]:RequestDependencies("Boilerplate", {
+	exports["mythic-base"]:RequestDependencies("ff_shoprobbery", {
 		"Database",
 		"Logger",
 		"Fetch",
@@ -29,7 +29,7 @@ AddEventHandler("Core:Shared:Ready", function()
 		"Vehicles"
 	}, function(error)
 		if #error > 0 then
-			Logger:Critical("FiveForge Boilerplate", "Failed To Load All Dependencies")
+			Logger:Critical("ff_shoprobbery, "Failed To Load All Dependencies")
 			return
 		end
 
