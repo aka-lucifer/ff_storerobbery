@@ -12,9 +12,7 @@ end
 ---@param reason string What the money was for
 function GiveMoney(source, amount, reason)
     if Config.UseMoneyItem then
-        if Config.Framework == "Qbox" then
-            GiveItem(source, "money", amount)
-        elseif Config.Framework == "QB" then
+        if Config.Framework == "Qbox" or Config.Framework == "QB" then
             GiveItem(source, "markedbills", 1, {
                 worth = amount
             })
