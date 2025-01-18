@@ -356,10 +356,6 @@ CreateThread(function()
     end
 end)
 
-local function canResetStores(source)
-    return true
-end
-
 lib.addCommand('resetstore', {
     help = 'This will remove a specific store cooldown. (Will not remove global cooldown)',
     params = {
@@ -370,7 +366,7 @@ lib.addCommand('resetstore', {
         }
     },
 }, function(source, args)
-    if not canResetStores(source) then return end
+    if not CanReset(source) then return end
     local src = source
 
     local storeIndex = tonumber(args.storeId)
@@ -398,7 +394,7 @@ lib.addCommand('resetstores', {
     help = 'This will reset all store cooldowns and the global cooldown.',
     params = {},
 }, function(source, args)
-    if not canResetStores(source) then return end
+    if not CanReset(source) then return end
     local src = source
 
     if GlobalState["ff_shoprobbery:cooldown"] then
