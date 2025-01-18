@@ -7,9 +7,7 @@ Config.Debug = false
 Config.Language = 'en' -- Locale language
 
 -- Framework Related
-Config.UseCustomFramework = false -- Set to true if using custom framework
 Config.Framework = 'Qbox' -- Supports Qbox, QB, ESX & Mythic
-Config.FrameworkCore = 'LEAVE_EMPTY_UNLESS_CUSTOM' -- You need to put your frameworks core resource name here if using custom framework
 Config.Target = "ox_target" -- Supports ox_target, qb-target & mythic-targeting
 
 -- Interface Related Options

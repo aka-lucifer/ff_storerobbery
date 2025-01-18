@@ -10,7 +10,7 @@ elseif Config.Framework == "ESX" and GetResourceState("es_extended") == "started
     Debug("Framework set to ESX", DebugTypes.Info)
 elseif Config.Framework == "Mythic" and GetResourceState("mythic-base") == "started" then
     Debug("Framework set to Mythic", DebugTypes.Info)
-elseif Config.UseCustomFramework and GetResourceState(Config.FrameworkCore) == "started" then
+elseif Config.Framework == "Custom" then
     Debug("Framework set to custom, you need to fill out the custom functions!", DebugTypes.Info)
 else
     Debug("You need to set the Config.Framework to either \"QBCore\" or \"ESX\" or \"Qbox\" or \"Mythic\" or \"Custom\"!", "error")
