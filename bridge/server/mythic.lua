@@ -29,7 +29,7 @@ AddEventHandler("Core:Shared:Ready", function()
 		"Vehicles"
 	}, function(error)
 		if #error > 0 then
-			Logger:Critical("ff_shoprobbery, "Failed To Load All Dependencies")
+			Logger:Critical("ff_shoprobbery", "Failed To Load All Dependencies")
 			return
 		end
 
