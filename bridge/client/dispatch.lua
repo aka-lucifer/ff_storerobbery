@@ -3,7 +3,7 @@ function RobberyAlert(coords)
         TriggerServerEvent('cd_dispatch:AddNotification', {
             job_table = Config.DispatchJobs, 
             coords = coords,
-            title = '10-90 - Store Robbery',
+            title = '10-68 - Store Robbery',
             message = "Robbery reported at general store.",
             flash = 0,
             unique_id = 'storerobbery',
@@ -20,7 +20,7 @@ function RobberyAlert(coords)
         TriggerServerEvent('qs-dispatch:server:CreateDispatchCall', {
             job = Config.DispatchJobs,
             callLocation = coords,
-            callCode = { code = '10-90', snippet = 'Store Robbery' },
+            callCode = { code = '10-68', snippet = 'Store Robbery' },
             message = "Robbery reported at general store.",
             flashes = false,
             blip = {
@@ -34,11 +34,11 @@ function RobberyAlert(coords)
         exports["ps-dispatch"]:StoreRobbery()
     elseif Config.Dispatch == "rcore_dispatch" then
         local data = {
-            code = '10-90',
+            code = '10-68',
             default_priority = 'medium',
             coords = coords,
             job = Config.DispatchJobs,
-            text = 'Stolen Dealership Vehicle',
+            text = 'Store Robbery',
             type = 'alerts',
             blip_time = 0,
             blip = {
@@ -50,7 +50,10 @@ function RobberyAlert(coords)
         }
         TriggerServerEvent('rcore_dispatch:server:sendAlert', data)
     elseif Config.Dispatch == "mythic-mdt" then
-        -- fill mythic mdt logic here
+        TriggerServerEvent("EmergencyAlerts:Server:DoPredefined", "storeRobbery", {
+			icon = "store",
+			details = "Robbery reported at general store."
+		})
     elseif Config.Dispatch == "custom" then
         -- fill this here
     end
@@ -62,7 +65,7 @@ function NetworkAlert(coords)
             job_table = Config.DispatchJobs, 
             coords = coords,
             title = '10-17 - Network Access',
-            message = "Attempted to access the stores network.",
+            message = "Unauthorized network access at general store.",
             flash = 0,
             unique_id = 'storenetwork',
             sound = 1,
@@ -79,7 +82,7 @@ function NetworkAlert(coords)
             job = Config.DispatchJobs,
             callLocation = coords,
             callCode = { code = '10-17', snippet = 'Network Access' },
-            message = "Attempted to access the stores network.",
+            message = "Unauthorized network access at general store.",
             flashes = false,
             blip = {
                 sprite = 629, 
@@ -107,7 +110,7 @@ function NetworkAlert(coords)
             default_priority = 'medium',
             coords = coords,
             job = Config.DispatchJobs,
-            text = 'Attempted to access the stores network',
+            text = 'Unauthorized network access at general store.',
             type = 'alerts',
             blip_time = 0,
             blip = {
@@ -119,7 +122,10 @@ function NetworkAlert(coords)
         }
         TriggerServerEvent('rcore_dispatch:server:sendAlert', data)
     elseif Config.Dispatch == "mythic-mdt" then
-        -- fill mythic mdt logic here
+        TriggerServerEvent("EmergencyAlerts:Server:DoPredefined", "storeNetwork", {
+			icon = "network-wired",
+			details = "Unauthorized network access at general store."
+		})
     elseif Config.Dispatch == "custom" then
         -- fill this here
     end
