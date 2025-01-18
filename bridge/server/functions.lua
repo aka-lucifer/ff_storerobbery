@@ -1,4 +1,3 @@
--- NOTIFICATIONS
 ---@param source integer
 ---@param message string
 ---@param type 'inform' | 'error' | 'success' | 'warning'
