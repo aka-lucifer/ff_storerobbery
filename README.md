@@ -4,6 +4,14 @@ A highly optimized store robbery system, with animations, props and networked sc
 # Documenation
 https://fiveforge-studios.gitbook.io/docs/free-resources/store-robbery
 
+# Dependencies
+
+* Qbox, QB, ESX Legacy or Mythic framework
+* Game build 2545+
+* Server version 4960+
+* [ox_lib](https://github.com/overextended/ox_lib)
+* [fallout_terminal](https://github.com/aka-lucifer/fivem-fallouthacking) - Modified, if you wish to change it, you can it in on line 9 and and line 51 of client/network.lua.
+
 # Features
 * **Target** - Supports (ox_target, qb-target, qtarget & mythic-targeting)
 * **Syncing** - Uses entity & global statebags to handle syncing data between all clients with ease.
