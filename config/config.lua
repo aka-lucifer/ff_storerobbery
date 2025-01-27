@@ -8,6 +8,7 @@ Config.Language = 'en' -- Locale language
 
 -- Framework Related
 Config.Framework = 'Qbox' -- Supports Qbox, QB, ESX & Mythic
+Config.UseTarget = true -- If you don't want to use target, will use
 Config.Target = "ox_target" -- Supports ox_target, qb-target & mythic-targeting
 
 -- Interface Related Options

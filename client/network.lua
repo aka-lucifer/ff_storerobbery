@@ -1,7 +1,15 @@
 local lastAlert = nil
 
+local network = {
+    zones = {},
+    hackingInteract = false
+}
+
 AddEventHandler("ff_shoprobbery:client:hackNetwork", function(_, data)
-    if not data or type(data.index) ~= "number" then return end
+    if not data or type(data.index) ~= "number" then
+        network.hackingInteract = false
+        return
+    end
     
     lib.requestAnimDict('anim@heists@prison_heiststation@cop_reactions')
     TaskPlayAnim(cache.ped, "anim@heists@prison_heiststation@cop_reactions", "cop_b_idle", 2.0, 2.0, -1, 50, 0, false, false, false)
@@ -9,8 +17,10 @@ AddEventHandler("ff_shoprobbery:client:hackNetwork", function(_, data)
     local hackedNetwork = exports.fallouthacking:start(6, 8)
     if hackedNetwork then
         local success, safeCode = lib.callback.await('ff_shoprobbery:getSafeCode', false, data.index)
-        if not success then return end
-
+        if not success then
+            network.hackingInteract = false
+            return
+        end
         Notify(string.format(locale("notification.safe_code"), safeCode), "inform", 20000)
     else
         if not lastAlert or GetGameTimer() > lastAlert then -- Handles cooldown for alert so it isn't spammed
@@ -19,12 +29,9 @@ AddEventHandler("ff_shoprobbery:client:hackNetwork", function(_, data)
         end
     end
     
+    network.hackingInteract = false
     ClearPedTasks(cache.ped)
 end)
-
-local network = {
-    zones = {}
-}
 
 --- Create network hack target for the current store
 ---@param index number
@@ -51,7 +58,10 @@ function network.createTarget(index)
                         local hackedNetwork = exports.fallouthacking:start(6, 8)
                         if hackedNetwork then
                             local success, safeCode = lib.callback.await('ff_shoprobbery:getSafeCode', false, index)
-                            if not success then return end
+                            if not success then
+                                network.hackingInteract = false
+                                return
+                            end
 
                             Notify(string.format(locale("notification.safe_code"), safeCode), "inform", 20000)
                         else
@@ -61,6 +71,7 @@ function network.createTarget(index)
                             end
                         end
 
+                        network.hackingInteract = false
                         ClearPedTasks(cache.ped)
                     end,
                     canInteract = function()
@@ -124,6 +135,37 @@ function network.deleteTarget(index)
             table.remove(network.zones, i)
         end
     end
+end
+
+--- Create network hack interaction for the current store
+---@param index number
+function network.createInteract(index)
+    if not index or type(index) ~= "number" then return end
+    local storeData = GlobalState[string.format("ff_shoprobbery:store:%s", index)]
+    if not storeData then return end
+
+    local coords = Config.Locations[index].network.coords
+    CreateThread(function()
+        while GlobalState["ff_shoprobbery:active"]
+        and GlobalState[string.format("ff_shoprobbery:store:%s", index)].robbedTill
+        and not GlobalState[string.format("ff_shoprobbery:store:%s", index)].hackedNetwork do
+            if not network.hackingInteract then
+                if #(GetEntityCoords(cache.ped, false) - coords) < 2.0 then
+                    HelpNotify(locale("interact.network"))
+                    if IsControlJustPressed(0, 47) then
+                        network.hackingInteract = true
+                        TriggerEvent("ff_shoprobbery:client:hackNetwork", nil, { index = index })
+                    end
+
+                    Wait(5)
+                else
+                    Wait(1000)
+                end
+            else
+                Wait(1000)
+            end
+        end
+    end)
 end
 
 return network

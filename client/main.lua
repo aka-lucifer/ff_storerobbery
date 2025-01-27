@@ -62,10 +62,18 @@ for i = 1, #Config.Locations do
         Debug("Store data updated (" .. json.encode(value, { indent = true }) .. ")", DebugTypes.Info)
 
         if value and value.robbedTill and not value.hackedNetwork then
-            network.createTarget(i)
+            if Config.UseTarget then
+                network.createTarget(i)
+            else
+                network.createInteract(i)
+            end
 
-            if not value.safeNet or not NetworkDoesNetworkIdExist(value.safeNet) then return end
-            safe.createTarget(i, value.safeNet)
+        elseif value and value.robbedTill and value.hackedNetwork and not value.openedSafe then
+            if Config.UseTarget then
+                safe.createTarget(i, value.safeNet)
+            else
+                safe.createInteract(i, value.safeNet)
+            end
         end
     end)
 end

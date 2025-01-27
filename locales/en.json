@@ -6,6 +6,10 @@
         "network": "Access Network",
         "safe": "Enter Safe Code"
     },
+    "interact": {
+        "network": "~INPUT_DETONATE~ ~g~Hack Computer",
+        "safe": "~INPUT_DETONATE~ ~g~Enter Safe Code"
+    },
     "notification": {
         "safe_code": "The safe code is %s."
     },

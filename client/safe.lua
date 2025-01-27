@@ -177,6 +177,11 @@ local function openSafe(safeEntity)
     return safeIdleScene(safeCoords, safeRotation, safeEntity, bag)
 end
 
+local safe = {
+    targets = {},
+    enteringCode = false
+}
+
 --- Event used for mythic safe code entering
 ---@param entity any
 ---@param data any
@@ -195,21 +200,25 @@ AddEventHandler("ff_shoprobbery:client:enterSafeCode", function(entity, data)
     }, {
         allowCancel = true
     })
-    if not inputtedCode then return end
+    if not inputtedCode then
+        safe.enteringCode = false
+        return
+    end
 
     local success = lib.callback.await('ff_shoprobbery:openSafe', false, data.index, string.format("%04d", inputtedCode[1]))
     if success then
-        if not openSafe(entity.entity) then return end
+        if not openSafe(entity.entity) then
+            safe.enteringCode = false
+            return
+        end
         
         TriggerServerEvent("ff_shoprobbery:server:lootedSafe", data.index, data.netId)
     else
         Notify(locale("error.incorrect_code"), 'error')
     end
-end)
 
-local safe = {
-    targets = {}
-}
+    safe.enteringCode = false
+end)
 
 --- Create the safe object
 ---@param safePosition vector4
@@ -265,16 +274,24 @@ function safe.createTarget(index, netId)
                     }, {
                         allowCancel = true
                     })
-                    if not inputtedCode then return end
+                    if not inputtedCode then
+                        safe.enteringCode = false
+                        return
+                    end
                 
                     local success = lib.callback.await('ff_shoprobbery:openSafe', false, index, string.format("%04d", inputtedCode[1]))
                     if success then
-                        if not openSafe(entity) then return end
+                        if not openSafe(entity) then
+                            safe.enteringCode = false
+                            return
+                        end
                         
                         TriggerServerEvent("ff_shoprobbery:server:lootedSafe", index, netId)
                     else
                         Notify(locale("error.incorrect_code"), 'error')
                     end
+
+                    safe.enteringCode = false
                 end,
                 canInteract = function()
                     local storeData = GlobalState[string.format("ff_shoprobbery:store:%s", index)]
@@ -315,6 +332,43 @@ function safe.deleteTargets()
         RemoveTargetEntity(safe.targets[i], "open_safe")
         DeleteEntity(safe.targets[i])
     end
+end
+
+--- Addd the target to the provided safe
+---@param index number
+---@param netId number
+function safe.createInteract(index, netId)
+    if not index or type(index) ~= "number" then return end
+    if not netId or type(netId) ~= "number" then return end
+    if not netId or not NetworkDoesNetworkIdExist(netId) then return end
+    local entity = NetworkGetEntityFromNetworkId(netId)
+    if not entity or not DoesEntityExist(entity) then return end
+
+    local storeData = GlobalState[string.format("ff_shoprobbery:store:%s", index)]
+    if not storeData then return end
+
+    local entCoords = GetEntityCoords(entity, false)
+    CreateThread(function()
+        while GlobalState["ff_shoprobbery:active"]
+        and GlobalState[string.format("ff_shoprobbery:store:%s", index)].hackedNetwork
+        and not GlobalState[string.format("ff_shoprobbery:store:%s", index)].openedSafe do
+            if not safe.enteringCode then
+                if #(GetEntityCoords(cache.ped, false) - entCoords) < 2.0 then
+                    HelpNotify(locale("interact.safe"))
+                    if IsControlJustPressed(0, 47) then
+                        safe.enteringCode = true
+                        TriggerEvent("ff_shoprobbery:client:enterSafeCode", { entity = entity }, { index = index, netId = netId })
+                    end
+
+                    Wait(5)
+                else
+                    Wait(1000)
+                end
+            else
+                Wait(1000)
+            end
+        end
+    end)
 end
 
 return safe
