@@ -1,4 +1,4 @@
----@param data OxBarProgress | OxCircleProgress | MythicProgress
+---@param data table
 ---@param finished? function
 ---@param cancelled? function
 function ProgressBar(data, finished, cancelled)
@@ -69,6 +69,12 @@ function Notify(message, type, time, icon)
 end
 
 RegisterNetEvent("ff_shoprobbery:client:notify", Notify)
+
+function HelpNotify(text)
+    AddTextEntry('ff_shoprobbery', text)
+    BeginTextCommandDisplayHelp('ff_shoprobbery')
+    EndTextCommandDisplayHelp(0, false, true, -1)
+end
 
 ---@param entity integer
 ---@param data table
