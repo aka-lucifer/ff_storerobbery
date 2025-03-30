@@ -45,7 +45,7 @@ function GiveItem(source, item, amount, metadata)
         local player = GetPlayer(source)
         if not player then return false end
 
-        local success = exports['qb-inventory']:AddItem(player.PlayerData.citizenid, item, amount, false, metadata)
+        local success = exports['qb-inventory']:AddItem(source, item, amount, false, metadata)
 
         if not success then
             Debug("Unable to add item to inventory (" .. source .. ")", DebugTypes.Error)
