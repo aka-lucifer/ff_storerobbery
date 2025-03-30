@@ -4,7 +4,7 @@ lua54 'yes'
 
 name 'ff_shoprobbery'
 author 'FiveForge Studios'
-version '1.0.1'
+version '1.0.2'
 description 'A convenience store robbery system'
 
 files {
